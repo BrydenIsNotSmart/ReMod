@@ -1,5 +1,6 @@
 const Embed = require("../functions/embed");
 const { readdirSync } = require("node:fs");
+const path = require("node:path")
 const serverModel = require("../database/models/server")
 
 module.exports = {
@@ -24,13 +25,13 @@ module.exports = {
 
     let catts = [];
 
-    readdirSync("./src/commands/").forEach(() => {
-      const commands = readdirSync(`./src/commands/`).filter((file) =>
+    readdirSync(__dirname).forEach(() => {
+      const commands = readdirSync(__dirname).filter((file) =>
         file.endsWith(".js")
       );
 
       const cmds = commands.map((command) => {
-        let file = require(`../commands/${command}`);
+        let file = require(path.join(__dirname, `${command}`));
 
         if (!file.name) return "No command name.";
 
