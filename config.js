@@ -2,7 +2,7 @@ require('dotenv').config();
 
 module.exports = {
     port: 3006,
-      mongoURI: "mongodb://RevoltBot:5FsKSaTsjDirUM9@173.249.33.220:25567/ReMod?retryWrites=true&w=majority",
+      mongoURI: "mongodb+srv://vitaldevelopment:n3yN715890SwFY1X@serverlessinstance0.afbkiui.mongodb.net/ReMod?retryWrites=true&w=majority",
          ownerids: ["01GPZ5PTPQ2RNMZEF02NKD7TQE"],
            bot: {
              prefix: "!",

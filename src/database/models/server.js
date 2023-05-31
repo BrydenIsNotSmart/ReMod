@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 let app = mongoose.Schema({
+
   id: {
     type: String,
     required: true
@@ -44,6 +45,14 @@ let app = mongoose.Schema({
   commandsRan: {
     type: Number,
     default: 0
+  },
+  bannedWords: {
+    type: Array,
+    required: false
+  },
+  dmOnBan: {
+    type: Boolean, 
+    default: true
   }
 });
 

@@ -17,11 +17,11 @@ module.exports = {
       .setColor("#ff4654")
       .setDescription(`## ${client.user.username} Help\nType !help [command] to learn more about a command.\n### **Commands**:\n${commands.join(", ")}`)
       message.channel.stopTyping();
-      return await message.reply({ embeds: [embed] }).catch(() => null);
+      return await message.reply({ embeds: [embed] }, false).catch(() => null);
     } else {  
-    const data = await serverModel.findOne({ id: message.channel.server_id });
-    if(!data) await serverModel.create({ id: message.channel.server_id })
-    const prefix = data.prefix ?? config.bot.prefix;
+    const data = await serverModel.findOne({ id: message.server.id });
+    if(!data) await serverModel.create({ id: message.server.id })
+    const prefix = data.prefix || config.bot.prefix;
 
     let catts = [];
 
@@ -74,15 +74,15 @@ module.exports = {
         )
         .setColor("#ff4654");
         message.channel.stopTyping();
-      return await message.reply({ embeds: [embed] });
+      return await message.reply({ embeds: [embed] }, false);
     }
 
     const embed = new Embed()
-      .setDescription(`## **Command Details**\n\n### **Command**:\n\`${command.name || "No name for this command." }\`\n\n### **Aliases**:\n\`${command.aliases.join(", ") || "No aliases for this command." }\`\n\n### **Usage**:\n \`${prefix}${command.name} ${command.usage || " "}\`\n\n### **Description**: \n\`${command.description}\``)
+      .setDescription(`### **Command Details**\n#### **Command**:\n\`${command.name || "No name for this command." }\`\n#### **Aliases**:\n\`${command.aliases.join(", ") || "No aliases for this command." }\`\n#### **Usage**:\n \`${prefix}${command.name} ${command.usage || " "}\`\n#### **Description**: \n\`${command.description}\``)
       .setColor("#ff4654");
       message.channel.stopTyping();
-    return await message.reply({ embeds: [embed] });
+    return await message.reply({ embeds: [embed] }, false);
   }
-    console.log(client.user)
+
     } 
 };

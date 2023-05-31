@@ -3,30 +3,30 @@ const serverModel = require("../database/models/server");
 const Embed = require('../functions/embed');
 
 module.exports = {
-	name: "message",
+	name: "messageCreate",
 	async execute(message) {
         try {
         if (!message.member || message.author.bot) return;
-        const data = await serverModel.findOne({ id: message.channel.server_id });
-        if(!data) await serverModel.create({ id: message.channel.server_id })
+        let data = await serverModel.findOne({ id: message.server.id });
+        if(!data) data = await serverModel.create({ id: message.server.id });
         const prefix = data.prefix ?? config.bot.prefix;
 
-        if (message.channel._id === data.countingChannel) {
+        if (message.channel.id === data.countingChannel) {
           if (!data.countingEnabled) return;
-           if (message.author._id === client.user._id) return;
-             if (data.countingMember === message.author._id) {
+           if (message.author.id === client.user.id) return;
+             if (data.countingMember === message.author.id) {
               if (data.countingReset) { 
                 message.react(encodeURI("❌"))
-                message.channel.sendMessage(`<@${message.author._id}> **RUINED** IT AT ${data.countingNumber}!! Next number is **1**.\nTypeError: \`You can't count two numbers in a row.\``)
+                message.channel.sendMessage(`<@${message.author.id}> **RUINED** IT AT ${data.countingNumber}!! Next number is **1**.\nTypeError: \`You can't count two numbers in a row.\``)
                 data.countingNumber = 0;
-                data.countingMember = client.user._id;
+                data.countingMember = client.user.id;
                 await data.save();
                 } else {
               message.delete().catch(() => {
                 message.channel.sendMessage(`I am missing the permission "ManageMessages" please add that to my role(s) so I can work properly!`)
               });
 
-                message.channel.sendMessage(`<@${message.author._id}>, it's not your turn, please let someone else go next!`).then(msg => {
+                message.channel.sendMessage(`<@${message.author.id}>, it's not your turn, please let someone else go next!`).then(msg => {
                 setTimeout(() => msg.delete().catch(() => {
                   message.channel.sendMessage(`I am missing the permission "ManageMessages" please add that to my role(s) so I can work properly!`)
                 }), 5000)
@@ -37,19 +37,19 @@ module.exports = {
               let number = data.countingNumber + 1;
               if (message.content.includes(number)) {
                 data.countingNumber = data.countingNumber + 1;
-                data.countingMember = message.author._id;
+                data.countingMember = message.author.id;
                 await data.save();
                 message.react(encodeURI("✅"))
               } else {
                 if (data.countingReset) { 
                 message.react(encodeURI("❌"))
-                message.channel.sendMessage(`<@${message.author._id}> **ruined** it at ${data.countingNumber}! Next number is 1.\nTypeError: \`Wrong Number\``)
+                message.channel.sendMessage(`<@${message.author.id}> **ruined** it at ${data.countingNumber}! Next number is 1.\nTypeError: \`Wrong Number\``)
                 data.countingNumber = 0;
-                data.countingMember = client.user._id;
+                data.countingMember = client.user.id;
                 await data.save();
                 } else {
                message.delete();
-               return message.channel.sendMessage(`<@${message.author._id}>, that was the wrong number!\nPlease continue with the correct number: **${data.countingNumber + 1}**`).then(msg => {
+               return message.channel.sendMessage(`<@${message.author.id}>, that was the wrong number!\nPlease continue with the correct number: **${data.countingNumber + 1}**`).then(msg => {
                 setTimeout(() => msg.delete(), 5000)
               })
              }
@@ -59,11 +59,11 @@ module.exports = {
         const pingEmbed = new Embed()
        .setColor("#ff4654")
        .setDescription(`## :wave: **Heyo, I'm ${client.user.username}**\nMy prefix for this server is **${prefix}**\nRun **${prefix}help** for a full list of my commands.`)
-       if (message.content.match(new RegExp(`^(<@!?${client.user._id}>)`))) {
+       if (message.content.match(new RegExp(`^(<@!?${client.user.id}>)`))) {
         message.channel.startTyping();
         setTimeout(() => { 
           message.channel.stopTyping();
-          return message.reply({ embeds: [pingEmbed] }) }, 200);
+          return message.reply({ embeds: [pingEmbed] }, false) }, 200);
      }
         if (!message.content.toLowerCase().startsWith(prefix)) return;
         let args = message.content.split(" ");
@@ -77,13 +77,6 @@ module.exports = {
           } else return;
         } catch (error) {
           console.error(error);
-          await message.reply({ 
-            embeds: [
-                { 
-                description: `:x: There was an error while executing this command! \n\`\`\`js\n${error}\`\`\``, 
-                colour: "#ff4654" }
-             ]
-           });
-        }
+        }  
 	}, 
 };

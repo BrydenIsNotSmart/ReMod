@@ -1,5 +1,5 @@
-const { Client } = require('revolt.js');
-const { Collection } = require('discord.js')
+const { Client, API } = require('revolt.js');
+const { Collection } = require('@discordjs/collection')
 const { readdirSync } = require("node:fs");
 const { join } = require("node:path");
 const client = new Client();

@@ -12,11 +12,11 @@ module.exports = {
         await serverModel.findOne();
         const dbPing = Date.now() - beforeCall;
         message.channel.startTyping();
-        const mesg = await message.reply(":ping_pong: Pong!");
+        const mesg = await message.reply(":ping_pong: Pong!", false);
         message.channel.stopTyping();
         const embed = new Embed()
         .setColor("#ff4654")
-        .setDescription(`### :ping_pong: Ping Pong\nBot Latency: \`${mesg.createdAt - message.createdAt}ms\`\n Websocket Latency: \`${client.websocket.ping}ms\`\n Datebase Latency: \`${dbPing}ms\``)
+        .setDescription(`### :ping_pong: Ping Pong\nBot Latency: \`${mesg.createdAt - message.createdAt}ms\`\n Websocket Latency: \`${client.events.ping()}ms\`\n Datebase Latency: \`${dbPing}ms\``)
         await mesg.edit({ content: " ", embeds: [embed] });
       } catch (err) {
         console.error(err);
@@ -24,7 +24,7 @@ module.exports = {
         const embed = new Embed()
         .setColor("#ff4654")
         .setDescription(`:x: There was an error while executing this command! \n\`\`\`js\n${err}\`\`\``)
-        await message.reply({ embeds: [embed] });
+        await message.reply({ embeds: [embed] }, false);
       }
     },
   };

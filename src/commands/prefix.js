@@ -19,14 +19,14 @@ module.exports = {
                 .setColor("#ff4654")
                 .setDescription(`:x: Please provide me with a prefix to set.\n**Example**:\n\`\`\`${data.prefix ?? config.bot.prefix}prefix set ?\`\`\``)
                 message.channel.stopTyping();
-            return await message.reply({ embeds: [embed] })
+            return await message.reply({ embeds: [embed] }, false)
             }
             if (args[1].length > 5) {
               const embed = new Embed()
                 .setColor("#ff4654")
                 .setDescription(`:x: The prefix must be below 5 characters.\n **Example**:\n\`\`\`${data.prefix ?? config.bot.prefix}prefix set ?\`\`\``)
                 message.channel.stopTyping();
-            return await message.reply({ embeds: [embed] })
+            return await message.reply({ embeds: [embed] }, false)
             }
             try {
               data.prefix = args[1];
@@ -35,7 +35,7 @@ module.exports = {
                 .setColor("#ff4654")
                 .setDescription(`## **:white_check_mark: Prefix Set Successfully**\nThe prefix for this server has been successfully set to \`${args[1]}\`.`)
                 message.channel.stopTyping();
-                await message.reply({ embeds: [embed] })
+                await message.reply({ embeds: [embed] }, false)
             } catch(err) {
                 console.error(err);
                 message.channel.stopTyping();
@@ -43,14 +43,14 @@ module.exports = {
                 .setColor("#ff4654")
                 .setDescription(`:x: There was an error while executing this command! \n\`\`\`js\n${err}\`\`\``)
                 message.channel.stopTyping();
-                await message.reply({ embeds: [embed] });
+                await message.reply({ embeds: [embed] }, false);
             }
         } else {
         const embed = new Embed()
         .setColor("#ff4654")
         .setDescription(`## **Prefix**\n**Server Prefix**:\n \`${data.prefix ?? config.bot.prefix}\`\n**Default Prefix**: \n\`${config.bot.prefix}\`\n\nRun \`${data.prefix ?? config.bot.prefix}prefix set [prefix] \` to set your server's prefix.`)
         message.channel.stopTyping();
-        await message.reply({ embeds: [embed] })
+        await message.reply({ embeds: [embed] }, false)
         }
       } catch (err) {
         console.error(err);
@@ -58,7 +58,7 @@ module.exports = {
         const embed = new Embed()
         .setColor("#ff4654")
         .setDescription(`:x: There was an error while executing this command! \n\`\`\`js\n${err}\`\`\``)
-        await message.reply({ embeds: [embed] });
+        await message.reply({ embeds: [embed] }, false);
       }
     },
   };
