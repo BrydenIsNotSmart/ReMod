@@ -5,7 +5,7 @@ const Embed = require("../functions/embed");
 module.exports = {
 	name: "messageUpdate",
 	async execute(message, oldMessage) {
-        if (!message.content) return;
+        if (!message.content || message.author.bot) return;
         if (message.authorId == client.user?.id) return;
         if (message.author.bot) return;
         let oldMsg = String(oldMessage.content ?? '(Unknown)');

@@ -23,12 +23,12 @@ module.exports = {
                 await data.save();
                 } else {
               message.delete().catch(() => {
-                message.channel.sendMessage(`I am missing the permission "ManageMessages" please add that to my role(s) so I can work properly!`)
+                message.channel.sendMessage(`I am missing the permission \`ManageMessages\` please add that to my role(s) so I can work properly!`)
               });
 
                 message.channel.sendMessage(`<@${message.author.id}>, it's not your turn, please let someone else go next!`).then(msg => {
                 setTimeout(() => msg.delete().catch(() => {
-                  message.channel.sendMessage(`I am missing the permission "ManageMessages" please add that to my role(s) so I can work properly!`)
+                  message.channel.sendMessage(`I am missing the permission \`ManageMessages\` please add that to my role(s) so I can work properly!`)
                 }), 5000)
               })
             }

@@ -41,7 +41,7 @@ module.exports = {
          } else if (args[0] == "toggle") {
          const permissionsEmbed = new Embed()
          .setColor("#ff4654")
-         .setDescription("x: You need the \"Manage Server\" permission to use this command.");
+         .setDescription(":x: You need the \`Manage Server\` permission to use this command.");
          if (!message.member.hasPermission(message.server, "ManageServer")) return message.reply({ embeds: [permissionsEmbed] }, false);
          const guild = await serverModel.findOne({ id: message.server.id });
          if (!guild.countingChannel) return message.reply("Please set a counting channel with \`counting channel <channel mention or id>\` first.", false)

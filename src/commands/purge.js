@@ -81,7 +81,7 @@ module.exports = {
                 messages = [await message.channel.fetchMessage(args[0])];
             } else {
                 return message.reply(
-                    `I can't parse that message range.\nSyntax: \`${SYNTAX}\``
+                    `I can't parse that message range.`
                 );
             }
 
