@@ -11,7 +11,7 @@ module.exports = {
 
       try {
         message.channel.startTyping();
-        const data = await serverModel.findOne({ id: message.channel.server_id });
+        const data = await serverModel.findOne({ id: message.server.id });
         if (args[0] == "set") {
             if (!message.member.hasPermission(message.member.server, "ManageServer")) return message.reply(":x: You don't have permission to change the server prefix.");
             if (!args[1]) {

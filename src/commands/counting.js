@@ -19,7 +19,8 @@ module.exports = {
          .setColor("#ff4654")
          .setDescription(":x: Please provide a correct channel mention or Id to set the counting channel.");
          if(!args[1]) return message.reply({ embeds: [argsEmbed] }, false);
-         const channel = message.server.channels.find(c => c.id === args[1].match(new RegExp(`(<#!?(.*)>)`))[2]) || message.server.channels.find(c => c.id === args[1]);
+         await client.channels.fetch(args[1].match(new RegExp(`(<#!?(.*)>)`))[2]) || client.channels.fetch(args[1]);
+         const channel = client.channels.get(args[1].match(new RegExp(`(<#!?(.*)>)`))[2]) || client.channels.get(args[1]);
          if(!channel) return message.reply({ embeds: [argsEmbed] }, false);
          const embed = new Embed()
          .setTitle("Counting Channel")

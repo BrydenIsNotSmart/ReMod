@@ -1,7 +1,12 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const app = express();
 
 //-webserver-//
+
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.get('/', async (req, res) => {
     res.send("Hello World");
 })

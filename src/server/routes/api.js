@@ -5,7 +5,7 @@ router.get('/', async (req, res) => {
   res.send("Hello World")
 })
 
-router.post("/github/webhook", async function(req, res) {
+router.post("/github/webhook", async (req, res) => {
     console.log(req.body);
   
     /*const payload = req.body;

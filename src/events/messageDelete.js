@@ -8,7 +8,7 @@ const Uploader = new Upload(client);
 module.exports = {
 	name: "messageDelete",
 	async execute(message) {
-        if (message.author.bot) return;
+        if (message.author?.bot) return;
         let channel = client.channels.get(message.channelId);
         let author = message.authorId ? client.users.get(message.authorId) : null;
         if (!channel) return;
