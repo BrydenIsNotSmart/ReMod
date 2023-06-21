@@ -16,7 +16,6 @@ module.exports = {
         if(!messageContent|| messageContent == '') messageContent = "(Unknown)";
         const data = await serverModel.findOne({ id: channel.server.id });
         if (!data.messagelogs) return;
-        let description = "";
         const embed = new Embed()
            .setColor("#ff4654")
            .setIcon(author.avatarURL)
