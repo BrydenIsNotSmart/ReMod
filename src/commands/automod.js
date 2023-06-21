@@ -1,10 +1,10 @@
 const Embed = require("../functions/embed");
 
 module.exports = {
-    name: "uptime",
-    aliases: ["time"],
-    category: "Information",
-    description: "Check the bots uptime.",
+    name: "automod",
+    aliases: ["mod"],
+    category: "Moderation",
+    description: "Setup the auto-moderation filters.",
     async run(client, message, args) {
       try {
         

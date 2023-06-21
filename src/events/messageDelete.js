@@ -24,7 +24,7 @@ module.exports = {
            .setDescription(`## **Message Deleted**\n**Content**: \n\`${messageContent}\`\n**Author ID**:\n\`${message.authorId}\`\n**Channel**:\n<#${message.channelId}>\n[Jump to this message](https://app.revolt.chat/server/${channel.server.id}/channel/${message.channelId}/${message.id})`)
            if (message.attachments?.length) {
             embed.addField('Attachments', message.attachments.map(a => 
-                `[\\[${a.filename}\\]](<https://autumn.revolt.chat/${a.tag}/${a.id}/${a.filename}>)`).join(' | '))
+                `[\\[${a.filename}\\]](<https://autumn.revolt.chat/${a.tag}/${a.id}>)`).join(' | '))
         }
         await client.channels.get(data.messagelogs).sendMessage({ embeds: [embed] }).catch(() => { });
 	},
